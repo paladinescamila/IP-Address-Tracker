@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {getInfo} from './api/getInfo';
 import './styles/index.css';
 
 // Assets
@@ -9,6 +10,7 @@ import BGMobile from './assets/bg-mobile.png';
 
 function App() {
 	const [ipAddress, setIpAddress] = useState<string>('');
+	const [error, setError] = useState<string | null>(null);
 
 	const [info, setInfo] = useState<Info>({
 		ip: '192.212.174.101',
@@ -17,7 +19,12 @@ function App() {
 		isp: 'SpaceX Starlink',
 	});
 
-	const onSearch = () => {};
+	const onSearch = async () => {
+		const newInfo = await getInfo(ipAddress);
+
+		if (newInfo) setInfo(newInfo);
+		else setError('No information found');
+	};
 
 	return (
 		<div className='flex flex-col items-center'>
