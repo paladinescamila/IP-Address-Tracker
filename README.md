@@ -1,8 +1,8 @@
-<h1 align="center">Frontend Mentor - IP Adress Tracker</h1>
+<h1 align="center">Frontend Mentor - IP Address Tracker</h1>
 
 ![](/public/preview.jpg)
 
-This is a solution to the [IP Adress Tracker](https://www.frontendmentor.io/challenges/ip-address-tracker-I8-0yYAH0). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+This is a solution to the [IP Address Tracker](https://www.frontendmentor.io/challenges/ip-address-tracker-I8-0yYAH0). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Links
 
