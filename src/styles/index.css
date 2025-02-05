@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+:root {
+	--dark-gray: hsl(0, 0%, 17%);
+	--light-gray: hsl(0, 0%, 59%);
+}
+
+body {
+	font-family: 'Rubik', serif;
+}
+
+.bg-dark-gray {
+	background-color: var(--dark-gray);
+}
+
+.bg-light-gray {
+	background-color: var(--light-gray);
+}
+
+.color-dark-gray {
+	color: var(--dark-gray);
+}
+
+.color-light-gray {
+	color: var(--light-gray);
+}
