@@ -44,7 +44,7 @@ function App() {
 			<section className={cn('flex flex-col items-center w-full px-6 xl:px-0')}>
 				<h1
 					className={cn(
-						'text-white font-bold text-2xl xl:text-3xl mt-[26px] xl:mt-[30px]'
+						'text-white font-semibold text-2xl xl:text-3xl tracking-[0.3px] mt-[26px] xl:mt-[30px]'
 					)}>
 					IP Address Tracker
 				</h1>

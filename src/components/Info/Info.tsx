@@ -23,7 +23,7 @@ export default function Info(props: InfoProps) {
 	return (
 		<ul
 			className={cn(
-				'flex flex-col xl:flex-row gap-4 xl:gap-8 w-full xl:w-[1110px] p-[26px] xl:py-[35px] xl:px-8 rounded-2xl bg-white mx-auto shadow-sm'
+				'flex flex-col xl:flex-row gap-4 xl:gap-0 w-full xl:w-[1110px] p-[26px] xl:py-[35px] xl:px-8 rounded-2xl bg-white mx-auto shadow-sm'
 			)}>
 			{infoItems.map(({id, label, value}, index) => (
 				<React.Fragment key={`info-item-${id}`}>
