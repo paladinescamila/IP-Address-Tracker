@@ -1,12 +1,22 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {getInfo} from './api/getInfo';
+import {MapContainer, Marker, TileLayer} from 'react-leaflet';
+import L from 'leaflet';
 import './styles/index.css';
+import 'leaflet/dist/leaflet.css';
 
 // Assets
 import ArrowIcon from './assets/arrow-icon.svg';
 import LocationIcon from './assets/location-icon.svg';
 import BGDesktop from './assets/bg-desktop.png';
 import BGMobile from './assets/bg-mobile.png';
+
+const LocationMarker = new L.Icon({
+	iconUrl: LocationIcon,
+	iconRetinaUrl: LocationIcon,
+	popupAnchor: [-0, -0],
+	iconSize: [46, 56],
+});
 
 function App() {
 	const [ipAddress, setIpAddress] = useState<string>('');
@@ -25,6 +35,14 @@ function App() {
 		if (newInfo) setInfo(newInfo);
 		else setError('No information found');
 	};
+
+	const [mapKey, setMapKey] = useState<number>(0);
+
+	useEffect(() => {
+		const handleResize = () => setMapKey((prev) => prev + 1);
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
 
 	return (
 		<div className='flex flex-col items-center'>
@@ -85,6 +103,33 @@ function App() {
 						</li>
 					</ul>
 				</section>
+				{info.latitude && info.longitude && (
+					<div className='w-full h-[300px] flex-grow'>
+						<MapContainer
+							key={mapKey}
+							center={[info.latitude, info.longitude]}
+							zoom={10}
+							style={{height: '100%', width: '100%'}}
+							zoomControl={false}
+							doubleClickZoom={false}
+							closePopupOnClick={false}
+							dragging={false}
+							zoomSnap={0}
+							zoomDelta={0}
+							trackResize={false}
+							touchZoom={false}
+							scrollWheelZoom={false}>
+							<TileLayer
+								attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+								url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+							/>
+							<Marker
+								position={[info.latitude, info.longitude]}
+								icon={LocationMarker}
+							/>
+						</MapContainer>
+					</div>
+				)}
 			</main>
 			<footer></footer>
 		</div>
