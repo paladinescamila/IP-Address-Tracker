@@ -27,7 +27,7 @@ export default function Map(props: MapProps) {
 		<MapContainer
 			key={mapKey}
 			center={[latitude, longitude]}
-			zoom={17}
+			zoom={15}
 			zoomControl={false}
 			doubleClickZoom={false}
 			closePopupOnClick={false}
