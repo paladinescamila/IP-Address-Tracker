@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {cn} from '../../utils/tw-merge';
 import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 
@@ -14,7 +14,15 @@ export default function Info(props: InfoProps) {
 	const {isMobile} = useWindowDimensions();
 
 	// List of info items
-	const infoItems: Array<keyof Info> = ['ip', 'location', 'timezone', 'isp'];
+	const infoItems: Array<{id: keyof Info; label: string; value: string}> = useMemo(
+		() => [
+			{id: 'ip', label: 'IP Address', value: info.ip},
+			{id: 'location', label: 'Location', value: info.location},
+			{id: 'timezone', label: 'Timezone', value: info.timezone},
+			{id: 'isp', label: 'ISP', value: info.isp},
+		],
+		[info]
+	);
 
 	return (
 		<ul
@@ -22,9 +30,9 @@ export default function Info(props: InfoProps) {
 				'flex flex-row w-[calc(100% - 48px)] xl:w-[1110px] py-[35px] px-8 rounded-2xl bg-white mx-auto shadow-sm',
 				{'flex-col p-[26px]': isMobile}
 			)}>
-			{infoItems.map((infoItem, index) => (
-				<React.Fragment key={`info-item-${infoItem}`}>
-					<InfoItem label={infoItem} value={info[infoItem]} />
+			{infoItems.map(({id, label, value}, index) => (
+				<React.Fragment key={`info-item-${id}`}>
+					<InfoItem label={label} value={value} />
 					{!isMobile && index < infoItems.length - 1 && (
 						<div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />
 					)}
@@ -36,7 +44,7 @@ export default function Info(props: InfoProps) {
 
 interface InfoItemProps {
 	label: string;
-	value: string | number;
+	value: string;
 }
 
 function InfoItem(props: InfoItemProps) {

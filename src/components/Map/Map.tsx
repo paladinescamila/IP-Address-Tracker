@@ -50,7 +50,7 @@ export default function Map(props: MapProps) {
 				</MapContainer>
 			)}
 			{!coordinates && (
-				<p className='w-full h-full flex items-center justify-center text-gray-400'>
+				<p className='w-full h-full flex items-center justify-center text-light-gray'>
 					No data
 				</p>
 			)}
