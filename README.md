@@ -6,7 +6,7 @@ This is a solution to the [IP Address Tracker](https://www.frontendmentor.io/cha
 
 ## Links
 
--   [Solution](https://www.frontendmentor.io/solutions/ip-address-tracker-h-UdiI6HrS)
+-   [Solution](https://www.frontendmentor.io/solutions/ip-address-tracker-7iu24QVQTG)
 -   [Live Site](https://ipat-frontend-mentor.netlify.app)
 
 ## Built with
