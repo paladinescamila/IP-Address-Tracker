@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {getInfo} from './api/getInfo';
 import {isValidIP} from './utils/isValidIP';
 import 'leaflet/dist/leaflet.css';
@@ -36,6 +36,10 @@ function App() {
 			setError(null);
 		} else setError('There was an error getting the information, try again.');
 	};
+
+	useEffect(() => {
+		search('');
+	}, []);
 
 	return (
 		<main className='flex flex-col items-center'>
