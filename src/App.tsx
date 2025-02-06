@@ -15,7 +15,6 @@ import InfoError from './components/InfoError/InfoError';
 import Map from './components/Map/Map';
 
 function App() {
-	// Info management
 	const [info, setInfo] = useState<Info>({
 		ip: '192.212.174.101',
 		location: 'Brooklyn, NY 10001',
