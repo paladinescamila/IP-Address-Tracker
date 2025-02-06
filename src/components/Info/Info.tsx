@@ -1,5 +1,4 @@
 import React, {useMemo} from 'react';
-import {cn} from '../../utils/tw-merge';
 
 interface InfoProps {
 	info: Info;
@@ -21,10 +20,7 @@ export default function Info(props: InfoProps) {
 	);
 
 	return (
-		<ul
-			className={cn(
-				'flex flex-col xl:flex-row gap-4 xl:gap-0 w-full xl:w-[1110px] p-[26px] xl:py-[35px] xl:px-8 rounded-2xl bg-white mx-auto shadow-sm'
-			)}>
+		<ul className='flex flex-col xl:flex-row gap-4 xl:gap-0 w-full xl:w-[1110px] p-[26px] xl:py-[35px] xl:px-8 rounded-2xl bg-white mx-auto shadow-sm'>
 			{infoItems.map(({id, label, value}, index) => (
 				<React.Fragment key={`info-item-${id}`}>
 					<InfoItem label={label} value={value} />
