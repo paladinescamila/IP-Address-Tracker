@@ -27,7 +27,6 @@ function App() {
 
 	const search = async (ipAddress: string) => {
 		if (ipAddress && !isValidIP(ipAddress)) return setError('Please provide a valid IP');
-
 		const data = await getInfo(ipAddress);
 
 		if (data) {
