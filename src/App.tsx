@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {getInfo} from './api/getInfo';
-import {useWindowDimensions} from './hooks/useWindowDimensions';
 import {cn} from './utils/tw-merge';
 import {isValidIP} from './utils/isValidIP';
 import 'leaflet/dist/leaflet.css';
@@ -17,9 +16,6 @@ import InfoError from './components/InfoError/InfoError';
 import Map from './components/Map/Map';
 
 function App() {
-	// Responsive
-	const {isMobile} = useWindowDimensions();
-
 	// Info management
 	const [info, setInfo] = useState<Info>({
 		ip: '192.212.174.101',
@@ -32,7 +28,7 @@ function App() {
 	const [error, setError] = useState<string | null>(null);
 
 	const search = async (ipAddress: string) => {
-		if (!isValidIP(ipAddress)) return setError('Please provide a valid IP');
+		if (ipAddress && !isValidIP(ipAddress)) return setError('Please provide a valid IP');
 
 		const data = await getInfo(ipAddress);
 
@@ -45,11 +41,11 @@ function App() {
 
 	return (
 		<main className='flex flex-col items-center'>
-			<section className='flex flex-col items-center w-full'>
+			<section className={cn('flex flex-col items-center w-full px-6 xl:px-0')}>
 				<h1
-					className={cn('text-white font-bold text-3xl mt-[30px]', {
-						'text-2xl mt-[26px]': isMobile,
-					})}>
+					className={cn(
+						'text-white font-bold text-2xl xl:text-3xl mt-[26px] xl:mt-[30px]'
+					)}>
 					IP Address Tracker
 				</h1>
 				<Input search={search} />
@@ -57,10 +53,8 @@ function App() {
 				{error && <InfoError error={error} />}
 			</section>
 			<div className='absolute top-0 left-0 right-0 bottom-0 -z-10'>
-				<img
-					src={isMobile ? BGMobile : BGDesktop}
-					className='w-full h-[35%] object-cover'
-				/>
+				<img src={BGDesktop} className='w-full h-[35%] object-cover hidden xl:flex' />
+				<img src={BGMobile} className='w-full h-[35%] object-cover flex xl:hidden' />
 				<Map coordinates={coordinates} />
 			</div>
 		</main>

@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react';
 import {cn} from '../../utils/tw-merge';
-import {useWindowDimensions} from '../../hooks/useWindowDimensions';
 
 interface InfoProps {
 	info: Info;
@@ -9,9 +8,6 @@ interface InfoProps {
 export default function Info(props: InfoProps) {
 	// Component data
 	const {info} = props;
-
-	// Responsive
-	const {isMobile} = useWindowDimensions();
 
 	// List of info items
 	const infoItems: Array<{id: keyof Info; label: string; value: string}> = useMemo(
@@ -27,14 +23,13 @@ export default function Info(props: InfoProps) {
 	return (
 		<ul
 			className={cn(
-				'flex flex-row w-[calc(100% - 48px)] xl:w-[1110px] py-[35px] px-8 rounded-2xl bg-white mx-auto shadow-sm',
-				{'flex-col p-[26px]': isMobile}
+				'flex flex-col xl:flex-row gap-4 xl:gap-8 w-full xl:w-[1110px] p-[26px] xl:py-[35px] xl:px-8 rounded-2xl bg-white mx-auto shadow-sm'
 			)}>
 			{infoItems.map(({id, label, value}, index) => (
 				<React.Fragment key={`info-item-${id}`}>
 					<InfoItem label={label} value={value} />
-					{!isMobile && index < infoItems.length - 1 && (
-						<div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />
+					{index < infoItems.length - 1 && (
+						<div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8 hidden xl:flex' />
 					)}
 				</React.Fragment>
 			))}
@@ -51,21 +46,12 @@ function InfoItem(props: InfoItemProps) {
 	// Component data
 	const {label, value} = props;
 
-	// Responsive
-	const {isMobile} = useWindowDimensions();
-
 	return (
-		<li className={cn('flex flex-col gap-3 flex-1', {'gap-[5px]': isMobile})}>
-			<p
-				className={cn('uppercase text-light-gray text-xs tracking-[2px] font-semibold', {
-					'text-[10px] tracking-[1px] text-center': isMobile,
-				})}>
+		<li className='flex flex-col gap-1 xl:gap-3 flex-1'>
+			<p className='uppercase text-light-gray text-[10px] xl:text-xs tracking-[1px] xl:tracking-[2px] font-semibold text-center xl:text-left'>
 				{label}
 			</p>
-			<p
-				className={cn('text-dark-gray text-2xl font-semibold tracking-[0.6px]', {
-					'text-xl tracking-[-0.2px] text-center': isMobile,
-				})}>
+			<p className='text-dark-gray text-xl xl:text-2xl font-semibold tracking-[-0.2px] xl:tracking-[0.6px] text-center xl:text-left'>
 				{value}
 			</p>
 		</li>
