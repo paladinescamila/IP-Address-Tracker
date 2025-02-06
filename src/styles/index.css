@@ -17,10 +17,10 @@ body {
 	background-color: var(--light-gray);
 }
 
-.color-dark-gray {
+.text-dark-gray {
 	color: var(--dark-gray);
 }
 
-.color-light-gray {
+.text-light-gray {
 	color: var(--light-gray);
 }

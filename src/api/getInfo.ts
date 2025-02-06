@@ -12,12 +12,16 @@ export const getInfo = async (ipAddress: string) => {
 			location: `${location.city}, ${location.region}`,
 			timezone: `UTC ${location.timezone}`,
 			isp: isp || as.name,
+		};
+
+		const coordinates: Coordinates = {
 			latitude: location.lat,
 			longitude: location.lng,
 		};
 
-		return info;
+		return {info, coordinates};
 	} catch (error) {
+		console.error('Error:', error);
 		return null;
 	}
 };

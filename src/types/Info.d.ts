@@ -3,6 +3,4 @@ type Info = {
 	location: string;
 	timezone: string;
 	isp: string;
-	latitude?: number;
-	longitude?: number;
 };
