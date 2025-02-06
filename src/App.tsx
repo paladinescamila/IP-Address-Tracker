@@ -1,5 +1,7 @@
 import {FormEvent, useEffect, useState} from 'react';
 import {getInfo} from './api/getInfo';
+import {useWindowDimensions} from './hooks/useWindowDimensions';
+import {cn} from './utils/tw-merge';
 import {MapContainer, Marker, TileLayer} from 'react-leaflet';
 import L from 'leaflet';
 import './styles/index.css';
@@ -45,11 +47,22 @@ function App() {
 		return () => window.removeEventListener('resize', handleResize);
 	}, []);
 
+	const {isMobile} = useWindowDimensions();
+
 	return (
 		<main className='flex flex-col items-center'>
 			<section className='flex flex-col items-center w-full'>
-				<h1 className='text-white font-bold text-3xl mt-[30px]'>IP Address Tracker</h1>
-				<form className='w-[555px] flex flex-row mt-7 mb-12' onSubmit={onSubmit}>
+				<h1
+					className={cn('text-white font-bold text-3xl mt-[30px]', {
+						'text-2xl mt-[26px]': isMobile,
+					})}>
+					IP Address Tracker
+				</h1>
+				<form
+					className={cn('w-[calc(100% - 48px)] md:w-[555px] flex flex-row mt-7 mb-12', {
+						'mb-6 ': isMobile,
+					})}
+					onSubmit={onSubmit}>
 					<input
 						value={ipAddress}
 						onChange={(e) => setIpAddress(e.target.value)}
@@ -60,48 +73,86 @@ function App() {
 						<img src={ArrowIcon} />
 					</button>
 				</form>
-
-				<ul className='flex flex-row w-[1110px] py-[35px] px-8 rounded-2xl bg-white mx-auto'>
-					<li className='flex flex-col gap-3 flex-1'>
-						<p className='uppercase color-light-gray text-xs tracking-[2px] font-semibold'>
+				<ul
+					className={cn(
+						'flex flex-row w-[calc(100% - 48px)] xl:w-[1110px] py-[35px] px-8 rounded-2xl bg-white mx-auto',
+						{'flex-col p-[26px]': isMobile}
+					)}>
+					<li className={cn('flex flex-col gap-3 flex-1', {'gap-[5px]': isMobile})}>
+						<p
+							className={cn(
+								'uppercase color-light-gray text-xs tracking-[2px] font-semibold',
+								{'text-[10px] tracking-[1px] text-center': isMobile}
+							)}>
 							IP Address
 						</p>
-						<p className='color-dark-gray text-2xl font-semibold tracking-[0.6px]'>
+						<p
+							className={cn(
+								'color-dark-gray text-2xl font-semibold tracking-[0.6px]',
+								{'text-xl tracking-[-0.2px] text-center': isMobile}
+							)}>
 							{info.ip}
 						</p>
 					</li>
-					<div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />
-					<li className='flex flex-col gap-3 flex-1'>
-						<p className='uppercase color-light-gray text-xs tracking-[2px] font-semibold'>
+					{!isMobile && <div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />}
+					<li className={cn('flex flex-col gap-3 flex-1', {'gap-[5px]': isMobile})}>
+						<p
+							className={cn(
+								'uppercase color-light-gray text-xs tracking-[2px] font-semibold',
+								{'text-[10px] tracking-[1px] text-center': isMobile}
+							)}>
 							Location
 						</p>
-						<p className='color-dark-gray text-2xl font-semibold tracking-[0.6px]'>
+						<p
+							className={cn(
+								'color-dark-gray text-2xl font-semibold tracking-[0.6px]',
+								{'text-xl tracking-[-0.2px] text-center': isMobile}
+							)}>
 							{info.location}
 						</p>
 					</li>
-					<div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />
-					<li className='flex flex-col gap-3 flex-1'>
-						<p className='uppercase color-light-gray text-xs tracking-[2px] font-semibold'>
+					{!isMobile && <div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />}
+					<li className={cn('flex flex-col gap-3 flex-1', {'gap-[5px]': isMobile})}>
+						<p
+							className={cn(
+								'uppercase color-light-gray text-xs tracking-[2px] font-semibold',
+								{'text-[10px] tracking-[1px] text-center': isMobile}
+							)}>
 							Timezone
 						</p>
-						<p className='color-dark-gray text-2xl font-semibold tracking-[0.6px]'>
+						<p
+							className={cn(
+								'color-dark-gray text-2xl font-semibold tracking-[0.6px]',
+								{'text-xl tracking-[-0.2px] text-center': isMobile}
+							)}>
 							{info.timezone}
 						</p>
 					</li>
-					<div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />
+					{!isMobile && <div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8' />}
 
-					<li className='flex flex-col gap-3 flex-1'>
-						<p className='uppercase color-light-gray text-xs tracking-[2px] font-semibold'>
+					<li className={cn('flex flex-col gap-3 flex-1', {'gap-[5px]': isMobile})}>
+						<p
+							className={cn(
+								'uppercase color-light-gray text-xs tracking-[2px] font-semibold',
+								{'text-[10px] tracking-[1px] text-center': isMobile}
+							)}>
 							ISP
 						</p>
-						<p className='color-dark-gray text-2xl font-semibold tracking-[0.6px]'>
+						<p
+							className={cn(
+								'color-dark-gray text-2xl font-semibold tracking-[0.6px]',
+								{'text-xl tracking-[-0.2px] text-center': isMobile}
+							)}>
 							{info.isp}
 						</p>
 					</li>
 				</ul>
 			</section>
 			<div className='absolute top-0 left-0 right-0 bottom-0 -z-10'>
-				<img src={BGDesktop} className='w-full h-[35%]' />
+				<img
+					src={isMobile ? BGMobile : BGDesktop}
+					className='w-full h-[35%] object-cover'
+				/>
 				{info.latitude && info.longitude && (
 					<div className='w-full h-[65%]'>
 						<MapContainer
