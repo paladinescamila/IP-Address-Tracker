@@ -15,29 +15,26 @@ import InfoError from './components/InfoError/InfoError';
 import Map from './components/Map/Map';
 
 function App() {
-	const [info, setInfo] = useState<Info>({
-		ip: '192.212.174.101',
-		location: 'Brooklyn, NY 10001',
-		timezone: 'UTC -05:00',
-		isp: 'SpaceX Starlink',
-	});
-
+	const [info, setInfo] = useState<Info | null>(null);
 	const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
 	const search = async (ipAddress: string) => {
-		if (ipAddress && !isValidIP(ipAddress)) return setError('Please provide a valid IP');
-		const data = await getInfo(ipAddress);
+		setInfo(null);
+		setCoordinates(null);
+		setError(null);
 
-		if (data) {
-			setInfo(data.info);
-			setCoordinates(data.coordinates);
-			setError(null);
-		} else setError('There was an error getting the information, try again.');
+		if (ipAddress && !isValidIP(ipAddress)) return setError('Please provide a valid IP');
+
+		const data = await getInfo(ipAddress);
+		setInfo(data?.info || null);
+		setCoordinates(data?.coordinates || null);
+
+		if (!data) setError('There was an error getting the information, try again.');
 	};
 
 	useEffect(() => {
-		search('');
+		search('198.199.85.110');
 	}, []);
 
 	return (
@@ -47,12 +44,20 @@ function App() {
 					IP Address Tracker
 				</h1>
 				<Input search={search} />
-				{!error && <Info info={info} />}
+				{!error && info && <Info info={info} />}
 				{error && <InfoError error={error} />}
 			</section>
 			<div className='absolute top-0 left-0 right-0 bottom-0 -z-10'>
-				<img src={BGDesktop} className='w-full h-[35%] object-cover hidden xl:flex' />
-				<img src={BGMobile} className='w-full h-[35%] object-cover flex xl:hidden' />
+				<img
+					src={BGDesktop}
+					className='w-full h-[35%] object-cover hidden xl:flex'
+					alt='Background'
+				/>
+				<img
+					src={BGMobile}
+					className='w-full h-[35%] object-cover flex xl:hidden'
+					alt='Background'
+				/>
 				<div className='w-full h-[65%]'>
 					{!error && coordinates && <Map coordinates={coordinates} />}
 					{(error || !coordinates) && (

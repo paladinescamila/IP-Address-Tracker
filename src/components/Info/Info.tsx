@@ -25,7 +25,7 @@ export default function Info(props: InfoProps) {
 				<React.Fragment key={`info-item-${id}`}>
 					<InfoItem label={label} value={value} />
 					{index < infoItems.length - 1 && (
-						<div className='h-[75px] w-[1px] bg-light-gray my-auto mx-8 hidden xl:flex' />
+						<li className='h-[75px] w-[1px] bg-[#D8D8D8] my-auto mx-8 hidden xl:flex' />
 					)}
 				</React.Fragment>
 			))}
