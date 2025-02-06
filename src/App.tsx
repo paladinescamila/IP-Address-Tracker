@@ -34,7 +34,7 @@ function App() {
 	};
 
 	useEffect(() => {
-		search('198.199.85.110');
+		search('');
 	}, []);
 
 	return (
